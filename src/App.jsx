@@ -51,18 +51,32 @@ function App() {
         }
     };
 
-    // 3. useEffect لجلب بيانات مدينة افتراضية عند التحميل
-    useEffect(() => {
-        // يجلب الطقس للقاهرة عند فتح التطبيق لأول مرة
-        fetchWeatherData('Cairo'); 
-    }, []); 
-
-    // 4. دالة لمعالجة البحث من مكون SearchBar
-    const handleSearch = (searchTerm) => {
-        if (searchTerm.trim()) {
-            fetchWeatherData(searchTerm.trim());
-        }
+   // 3. useEffect لإدارة الجلب الأولي والتحديث التلقائي
+   useEffect(() => {
+    // دالة الجلب التي سيتم استدعاؤها في البداية وكل فترة
+    const initialFetch = () => {
+         // نستخدم 'city' من حالة useState لضمان جلب آخر مدينة تم البحث عنها
+        fetchWeatherData(city); 
     };
+
+    // 1. الجلب الأولي عند تحميل المكون
+    initialFetch();
+    
+    // 2. تعيين مؤقت لتحديث البيانات تلقائياً كل 5 دقائق (300,000 مللي ثانية)
+    const intervalId = setInterval(initialFetch, 300000); 
+
+    // 3. دالة التنظيف (Cleanup function): لإيقاف المؤقت عند خروج المكون أو إعادة تشغيله
+    return () => clearInterval(intervalId);
+    
+}, [city]); // يتم إعادة تشغيل المؤقت (بإيقاف القديم وبدء الجديد) فقط إذا تغيرت قيمة 'city'
+
+// 4. دالة لمعالجة البحث من مكون SearchBar
+const handleSearch = (searchTerm) => {
+    if (searchTerm.trim()) {
+        // عند البحث، نقوم بتحديث حالة 'city' مما يؤدي لتشغيل الـ useEffect الجديد
+        setCity(searchTerm.trim()); 
+    }
+};
 
     // 5. تحديد المكون الذي سيتم عرضه
     const displayContent = () => {
