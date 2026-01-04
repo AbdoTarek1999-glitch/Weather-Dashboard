@@ -4,7 +4,6 @@ const WeatherCard = ({ data }) => {
     if (!data) return null;
 
     const { name, main, weather, wind, sys } = data;
-    // أيقونة الطقس من المصدر الرسمي
     const iconUrl = `https://openweathermap.org/img/wn/${weather[0].icon}@4x.png`;
 
     return (
@@ -19,14 +18,9 @@ const WeatherCard = ({ data }) => {
                 </p>
             </div>
 
-            {/* الجزء الأوسط: درجة الحرارة والأيقونة */}
             <div className="flex flex-col md:flex-row items-center justify-around bg-white/10 backdrop-blur-md rounded-3xl p-6 border border-white/20 shadow-inner">
                 <div className="relative">
-                    <img 
-                        src={iconUrl} 
-                        alt={weather[0].description} 
-                        className="w-32 h-32 drop-shadow-2xl" 
-                    />
+                    <img src={iconUrl} alt={weather[0].description} className="w-32 h-32 drop-shadow-2xl"/>
                 </div>
                 <div className="text-center md:text-left">
                     <div className="text-7xl font-black leading-none flex">
@@ -39,7 +33,6 @@ const WeatherCard = ({ data }) => {
                 </div>
             </div>
 
-            {/* الجزء السفلي: تفاصيل إضافية (Grid) */}
             <div className="grid grid-cols-2 gap-4 mt-6">
                 <div className="bg-white/10 backdrop-blur-md p-4 rounded-2xl border border-white/10 flex items-center space-x-4 space-x-reverse">
                     <span className="text-2xl">💧</span>
