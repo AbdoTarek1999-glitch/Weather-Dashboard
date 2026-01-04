@@ -30,7 +30,6 @@ function App() {
             if (!currentRes.ok) throw new Error("عذراً، لم نتمكن من العثور على هذه المدينة");
             const currentData = await currentRes.json();
 
-            // 2. جلب توقعات الـ 5 أيام
             const forecastRes = await fetch(`${BASE_URL}/forecast?q=${cityName}&appid=${API_KEY}&units=metric&lang=ar`);
             if (!forecastRes.ok) throw new Error("فشل جلب بيانات التوقعات");
             const fData = await forecastRes.json();
@@ -39,7 +38,6 @@ function App() {
             setWeatherData(currentData);
             setForecastData(dailyData);
 
-            // تغيير الخلفية بناءً على الطقس
             const mainWeather = currentData.weather[0].main.toLowerCase();
             if (mainWeather.includes('clear')) setBgClass('from-orange-400 to-red-500');
             else if (mainWeather.includes('rain')) setBgClass('from-blue-800 to-gray-900');
@@ -65,7 +63,6 @@ function App() {
             <Header onHomeClick={() => setCity('Cairo')} />
 
             <main className="flex-grow flex items-center justify-center p-4 md:p-10 w-full">
-                {/* الحاوية الكبيرة المحدثة لعرض عمودين في الشاشات الكبيرة */}
                 <div className="w-full max-w-6xl mx-auto bg-white/10 backdrop-blur-3xl rounded-[3rem] shadow-2xl p-6 md:p-12 border border-white/20">
                     
                     <SearchBar onSearch={(term) => setCity(term)} />
@@ -78,18 +75,14 @@ function App() {
                         {weatherData && !isLoading && !error && (
                             <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 animate-in fade-in slide-in-from-bottom-10 duration-1000">
                                 
-                                {/* العمود الأول: بيانات الطقس */}
                                 <div className="space-y-8">
                                     <WeatherCard data={weatherData} />
                                     <Forecast days={forecastData} />
                                 </div>
 
-                                {/* العمود الثاني: كوكب الأرض واللقطات المباشرة */}
                                 <div className="space-y-8">
-                                    {/* مجسم كوكب الأرض */}
                                     <WorldGlobe coordinates={weatherData.coord} />
 
-                                    {/* شاشة القمر الصناعي المباشر */}
                                     <div className="w-full h-72 bg-black/30 rounded-[2.5rem] border border-white/10 relative overflow-hidden shadow-2xl">
                                         <div className="absolute top-4 left-4 z-10 flex items-center gap-2 bg-red-600 text-white text-[10px] px-3 py-1 rounded-full animate-pulse font-black uppercase tracking-widest">
                                             <span className="w-2 h-2 bg-white rounded-full"></span> LIVE SATELLITE
