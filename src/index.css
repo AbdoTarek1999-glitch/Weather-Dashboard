@@ -1,6 +1,6 @@
 @import "tailwindcss";
 
-/* 1. إعدادات الأساس لضمان ملء الشاشة */
+
 html, 
 body, 
 #root {
@@ -12,15 +12,14 @@ body,
   flex-direction: column;
 }
 
-/* 2. تحسين الخطوط ونعومتها */
 body {
   font-family: 'Inter', system-ui, -apple-system, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden; /* يمنع أي اهتزاز عرضي في الصفحة */
+  overflow-x: hidden;
 }
 
-/* 3. إلغاء أي هوامش افتراضية قد تسبب انزياح الصفحة */
-* {
+
+{
   box-sizing: border-box;
 }
