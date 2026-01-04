@@ -10,7 +10,7 @@ const Footer = () => {
         
         <div className="flex items-center gap-6">
           <a 
-            href="https://www.linkedin.com/in/abdulrahman-tarek-your-profile" // ضع رابط بروفايلك الحقيقي هنا
+            href="https://www.linkedin.com/in/abdulrahman-tarek-your-profile"
             target="_blank" 
             rel="noopener noreferrer"
             className="flex items-center gap-2 text-white/80 hover:text-blue-400 transition-all group"
